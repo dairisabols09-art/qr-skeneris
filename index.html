@@ -2,29 +2,76 @@
 <html lang="lv">
 <head>
   <meta charset="UTF-8">
-  <title>QR skeneris</title>
+  <title>QR koda skeneris</title>
   <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      text-align: center;
+      padding: 20px;
+    }
+    #reader {
+      width: 360px;
+      margin: 0 auto;
+    }
+    .box {
+      background: white;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .start { background: #28a745; color: white; }
+    .stop { background: #dc3545; color: white; }
+    .copy { background: #007bff; color: white; }
+  </style>
 </head>
 <body>
 
-<h2>QR koda skeneris</h2>
+<h2>📷 QR koda skeneris</h2>
 
-<div id="reader" style="width:1000px"></div>
+<div id="reader"></div>
 
-<p><b>Noskenētais kods:</b></p>
-<p id="result">—</p>
+<div class="box">
+  <p><b>Noskenētais kods:</b></p>
+  <p id="result">—</p>
+
+  <button class="start" onclick="startScan()">Sākt</button>
+  <button class="stop" onclick="stopScan()">Apturēt</button>
+  <button class="copy" onclick="copyText()">Kopēt</button>
+</div>
 
 <script>
   const qr = new Html5Qrcode("reader");
   const result = document.getElementById("result");
 
-  qr.start(
-    { facingMode: "environment" },
-    { fps: 10, qrbox: 1000},
-    text => {
-      result.innerText = text;
+  function startScan() {
+    qr.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 320 },
+      text => result.innerText = text
+    );
+  }
+
+  function stopScan() {
+    qr.stop();
+  }
+
+  function copyText() {
+    if (result.innerText !== "—") {
+      navigator.clipboard.writeText(result.innerText);
+      alert("Nokopēts!");
     }
-  );
+  }
 </script>
 
 </body>
