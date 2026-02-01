@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <title>QR skeneris</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+
+<h2>QR koda skeneris</h2>
+
+<div id="reader" style="width:300px"></div>
+
+<p><b>Noskenētais kods:</b></p>
+<p id="result">—</p>
+
+<script>
+  const qr = new Html5Qrcode("reader");
+  const result = document.getElementById("result");
+
+  qr.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 250 },
+    text => {
+      result.innerText = text;
+    }
+  );
+</script>
+
+</body>
+</html>
