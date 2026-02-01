@@ -6,8 +6,8 @@
   <script src="https://unpkg.com/html5-qrcode"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      font-family: Times New Roman;
+      background: #6C8C08;
       text-align: center;
       padding: 20px;
     }
@@ -57,7 +57,7 @@
   function startScan() {
     qr.start(
       { facingMode: "environment" },
-      { fps: 10, qrbox: 320 },
+      { fps: 10, qrbox: 1000 },
       text => result.innerText = text
     );
   }
